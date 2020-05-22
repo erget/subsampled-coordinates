@@ -5,7 +5,7 @@ dimensions:
 	channel = 16 ;
 variables:
 	float radiance(track, scan, channel) ;
-    int interpolation ;
+    	int interpolation ;
   		interpolation:tie_point_interpolation_name = "bi_quadratic_method1" ;
   		interpolation:tie_point_interpolation_coefficients = "tp/expansion_coefficient_track tp/alignment_coefficient_track tp/expansion_coefficient_scan tp/alignment_coefficient_scan" ;
   		interpolation:tie_point_interpolation_flags = "tp/interpolation_zone_flags" ;
