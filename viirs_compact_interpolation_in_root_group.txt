@@ -1,0 +1,60 @@
+netcdf viirs_compact {
+dimensions:
+	track = 768 ;
+	scan = 3200 ;
+	channel = 16 ;
+variables:
+	float radiance(track, scan, channel) ;
+    int interpolation ;
+  		interpolation:tie_point_interpolation_name = "bi_quadratic_method1" ;
+  		interpolation:tie_point_interpolation_coefficients = "tp/expansion_coefficient_track tp/alignment_coefficient_track tp/expansion_coefficient_scan tp/alignment_coefficient_scan" ;
+  		interpolation:tie_point_interpolation_flags = "tp/interpolation_zone_flags" ;
+  		interpolation:tie_point_indices = "tp/track_indices tp/scan_indices" ;
+  		interpolation:location_tie_points = "tp/lat tp/lon" ;
+  		interpolation:sensor_direction_tie_points = "tp/sen_azi_ang tp/sen_zen_ang" ;
+  		interpolation:solar_direction_tie_points = "tp/sol_azi_ang tp/sol_zen_ang" ;
+data:
+
+group: tp {
+  dimensions:
+  	track = 96 ;
+  	scan = 205 ;
+  	track_interpolation_zone = 48 ;
+  	scan_interpolation_zone = 200 ;
+  variables:
+  	float lat(track, scan) ;
+  		lat:standard_name = "latitude" ;
+  		lat:units = "degrees_north" ;
+  	float lon(track, scan) ;
+  		lon:standard_name = "longitude" ;
+  		lon:units = "degrees_east" ;
+  	float sen_azi_ang(track, scan) ;
+  		sen_azi_ang:standard_name = "sensor_azimuth_angle" ;
+  		sen_azi_ang:units = "degrees" ;
+  	float sen_zen_ang(track, scan) ;
+  		sen_zen_ang:standard_name = "sensor_zenith_angle" ;
+  		sen_zen_ang:units = "degrees" ;
+  	float sol_azi_ang(track, scan) ;
+  		sol_azi_ang:standard_name = "solar_azimuth_angle" ;
+  		sol_azi_ang:units = "degrees" ;
+  	float sol_zen_ang(track, scan) ;
+  		sol_zen_ang:standard_name = "solar_zenith_angle" ;
+  		sol_zen_ang:units = "degrees" ;
+  	int track_indices(track) ;
+  		track_indices:long_name = "tie_point_indices_in_interpolation_dimension" ;
+  		track_indices:interpolation_dimension = "../track" ;
+  	int scan_indices(scan) ;
+  		scan_indices:long_name = "tie_point_indices_in_interpolation_dimension" ;
+  		scan_indices:interpolation_dimension = "../scan" ;
+  	short expansion_coefficient_track(track_interpolation_zone, scan) ;
+  	short alignment_coefficient_track(track_interpolation_zone, scan) ;
+  	short expansion_coefficient_scan(track, scan_interpolation_zone) ;
+  	short alignment_coefficient_scan(track, scan_interpolation_zone) ;
+  	byte interpolation_zone_flags(track_interpolation_zone, scan_interpolation_zone) ;
+  		interpolation_zone_flags:long_name = "interpolation_coordinates" ;
+  		interpolation_zone_flags:valid_range = "1b, 7b" ;
+  		interpolation_zone_flags:flag_masks = "1b, 2b, 4b" ;
+  		interpolation_zone_flags:flag_meanings = "location_use_cartesian  sensor_direction_use_cartesian  solar_direction_use_cartesian" ;
+  data:
+  } // group tp
+}
