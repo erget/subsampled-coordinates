@@ -1,0 +1,48 @@
+netcdf multiband_profile_swath {
+  dimensions :
+    track = 5200
+    scan = 3600;
+    band = 5;
+    press = 15;
+    sub_track = 250;
+    sub_scan = 600;
+
+  variables :
+    float swath_data(track, scan, press, band);
+      swath_data : coordinates = "time"
+      swath_data : subsampled_coordinates = "lat lon";
+      swath_data : restore_mapping = "restore";
+
+    float band(band);
+      band : standard_name = "sensor_band_central_radiation_wavenumber";
+      band : units = "cm-1";
+
+    float press(press);
+      press : standard_name = "air_pressure";
+      press : units = "Pa";
+      press : positive = "up";
+
+    double time(track, scan);
+      time : standard_name = "time";
+      time : units = "<units> since <datetime string>";
+      time : calendar = "gregorian";
+
+    float lat(sub_time, sub_scan);
+      lat : standard_name = "latitude";
+      lat : units = "degrees_north";
+
+    float lon(sub_time, sub_scan);
+      lon : standard_name = "longitude";
+      lon : units = "degrees_east";
+
+    int sub_track(sub_track);
+      sub_track : subsamples_dimension = "track";
+
+    int sub_scan(sub_scan);
+      sub_scan : subsamples_dimension = "scan";
+
+    char restore;
+      restore : restore_mapping_name = "something_amazing";
+      restore : param1 = ...;
+      restore : param2 = ...;
+}
