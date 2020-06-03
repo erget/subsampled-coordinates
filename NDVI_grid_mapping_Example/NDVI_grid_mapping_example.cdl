@@ -1,0 +1,50 @@
+netcdf NDVI_grid_mapping_example {
+dimensions:
+  // NDVI product grid
+  y = 6 ;
+  x = 5 ;
+  // Tie points (tp)
+  tp_y = 2 ;
+  tp_x = 2 ;
+
+variables:
+  float ndvi(lat, lon) ;
+    ndvi : standard_name = "normalized_difference_vegetation_index" ;
+    ndvi : interpolation = "tp_interpolation" ;
+    ndvi : interpolation_indices = "y_indices x_indices" ;
+    ndvi : grid_mapping = "crs" ;
+
+  int y_indices(tp_y) ;
+    y_indices : interpolation_dimension = "y" ;
+  int x_indices(tp_x) ;
+    x_indices : interpolation_dimension = "x" ;
+
+  char crs ;
+    crs : grid_mapping_name = "lambert_conformal_conic";
+    crs : standard_parallel = 25.0;
+    crs : longitude_of_central_meridian = 265.0;
+    crs : latitude_of_projection_origin = 25.0;
+
+  char tp_interpolation ;
+    tp_interpolation : interpolation_name = "bi_linear" ;
+    tp_interpolation : location_tie_points = "y x" ;
+  float y(tp_y) ;
+    y : standard_name = "projection_y_coordinate" ;
+    y : units = "km" ;
+  float x(tp_x) ;
+    x : standard_name = "projection_x_coordinate" ;
+    x : units = "km" ;
+
+data:
+  ndvi =
+    0.5119157, 0.04983568, 0.5414233, 0.3076001, 0.8931185,
+    0.8581991, 0.7848567, 0.2485297, 0.9762608, 0.4546139,
+    0.1063213, 0.8751125, 0.9819403, 0.9346204, 0.2765055,
+    0.2011242, 0.7634977, 0.7657007, 0.3465044, 0.9491135,
+    0.9431587, 0.04104269, 0.5652257, 0.5340118, 0.8907427,
+    0.3514801, 0.1451995, 0.1523716, 0.1563433, 0.7384073 ;
+  y_indices = 0, 5 ;
+  x_indices = 0, 4 ;
+  y = 10, 20 ;
+  x = 10, 30 ;
+}
