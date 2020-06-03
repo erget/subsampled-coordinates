@@ -1,6 +1,6 @@
 Example based on VIIRS M-Band (750 m resolution imaging) and VIIRS I-Band (375 m resolution imaging) radiance data variables.
 
-The M-Band and I-Band radiance data variables shares the common compacted geolocation, viweing angle and time defined by the tp_interpolation and time_iterpolation containers.
+The M-Band and I-Band radiance data variables shares the common compacted geolocation, viweing angle and time defined by the tp_interpolation and time_interpolation containers.
 
 The shared interpolation containers references:
   - an interpolation method (interpolation_name)
