@@ -1,0 +1,28 @@
+﻿netcdf NDVI_example_uncompacted {
+dimensions:
+  // NDVI product grid
+  lat = 6 ;
+  lon = 5 ;
+
+variables:
+  float ndvi(lat, lon) ;
+    ndvi : standard_name = "normalized_difference_vegetation_index" ;
+
+  float lat(lat) ;
+    lat : standard_name = "latitude" ;
+    lat : units = "degrees_north" ;
+  float lon(lon) ;
+    lon : standard_name = "longitude" ;
+    lon : units = "degrees_east" ;
+
+data:
+  ndvi =
+    0.5119157, 0.04983568, 0.5414233, 0.3076001, 0.8931185,
+    0.8581991, 0.7848567, 0.2485297, 0.9762608, 0.4546139,
+    0.1063213, 0.8751125, 0.9819403, 0.9346204, 0.2765055,
+    0.2011242, 0.7634977, 0.7657007, 0.3465044, 0.9491135,
+    0.9431587, 0.04104269, 0.5652257, 0.5340118, 0.8907427,
+    0.3514801, 0.1451995, 0.1523716, 0.1563433, 0.7384073 ;
+  y = 10, 12, 14, 16, 18, 20 ;
+  x = 10, 15, 20, 25, 30 ;
+}
