@@ -10,7 +10,7 @@ dimensions :
   i_scan = 6400 ; 
   i_channel = 5 ;
 
-  // Tie points and interploation zones (shared bewtween VIIRS M-Band and I-Band)
+  // Tie points and interpolation zones (shared bewtween VIIRS M-Band and I-Band)
   tp_track = 96 ;
   tp_scan = 205 ;
   track_interpolation_zone = 48 ;
