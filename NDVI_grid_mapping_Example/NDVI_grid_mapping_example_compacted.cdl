@@ -1,4 +1,4 @@
-netcdf NDVI_grid_mapping_example {
+netcdf NDVI_grid_mapping_example_compacted {
 dimensions:
   // NDVI product grid
   y = 6 ;
