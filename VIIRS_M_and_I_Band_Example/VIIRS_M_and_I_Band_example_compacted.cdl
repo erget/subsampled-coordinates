@@ -25,6 +25,7 @@ variables:
   float m_radiance(m_track, m_scan, m_channel) ;
     m_radiance : interpolation = "tp_interpolation time_interpolation" ;
     m_radiance : interpolation_indices = "m_track_indices m_scan_indices" ;
+    m_radiance : interpolation_offsets = "m_track: 0.5 m_scan: 0.5" ;   // unit is cells
   int m_track_indices(tp_track) ;
     m_track_indices : interpolation_dimension = "m_track" ;
   int m_scan_indices(tp_scan) ;
@@ -34,6 +35,7 @@ variables:
   float i_radiance(i_track, i_scan, i_channel) ;
     i_radiance : interpolation = "tp_interpolation time_interpolation" ;
     i_radiance : interpolation_indices = "i_track_indices i_scan_indices" ;
+    i_radiance : interpolation_offsets = "i_track: 0.5 i_scan: 0.5" ;   // unit is cells
   int i_track_indices(tp_track) ;
     i_track_indices : interpolation_dimension = "i_track" ;
   int i_scan_indices(tp_scan) ;
