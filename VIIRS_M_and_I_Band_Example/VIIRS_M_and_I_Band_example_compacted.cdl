@@ -10,7 +10,7 @@ dimensions :
   i_scan = 6400 ; 
   i_channel = 5 ;
 
-  // Tie points and interpolation zones (shared bewtween VIIRS M-Band and I-Band)
+  // Tie points and interpolation zones (shared between VIIRS M-Band and I-Band)
   tp_track = 96 ;
   tp_scan = 205 ;
   track_interpolation_zone = 48 ;
@@ -41,7 +41,7 @@ variables:
   int i_scan_indices(tp_scan) ;
     i_scan_indices : interpolation_dimension = "i_scan" ;
 
-  // Reusable interpolation containers for geometri and time, shared by VIIRS M-Band and I-Band
+  // Reusable interpolation containers for space and time, shared by VIIRS M-Band and I-Band
   char tp_interpolation ;
     tp_interpolation : interpolation_name = "bi_quadratic" ;
     tp_interpolation : interpolation_coefficients = "expansion_coefficient_track alignment_coefficient_track expansion_coefficient_scan alignment_coefficient_scan" ;
@@ -73,7 +73,7 @@ variables:
     sol_zen_ang : standard_name = "solar_zenith_angle" ;
     sol_zen_ang : units = "degrees" ;
 
-  // Interploation coefficients and flags
+  // Interpolation coefficients and flags
   short expansion_coefficient_track(track_interpolation_zone, tp_scan) ;
   short alignment_coefficient_track(track_interpolation_zone, tp_scan) ;
   short expansion_coefficient_scan(tp_track, scan_interpolation_zone) ;
