@@ -50,7 +50,7 @@ variables:
     tp_interpolation : sensor_direction_tie_points = "sen_azi_ang sen_zen_ang" ;
     tp_interpolation : solar_direction_tie_points = "sol_azi_ang sol_zen_ang" ;
   char time_interpolation ;
-    time_interpolation : time_interpolation_name = "bi_linear" ;
+    time_interpolation : interpolation_name = "bi_linear" ;
     time_interpolation : time = "t" ;
 
   // Tie points
