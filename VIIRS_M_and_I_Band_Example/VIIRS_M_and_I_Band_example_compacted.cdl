@@ -79,7 +79,6 @@ variables:
   short expansion_coefficient_scan(tp_track, scan_interpolation_zone) ;
   short alignment_coefficient_scan(tp_track, scan_interpolation_zone) ;
   byte interpolation_zone_flags(track_interpolation_zone, scan_interpolation_zone) ;
-    interpolation_zone_flags:long_name = "interpolation_coordinates" ;
     interpolation_zone_flags:valid_range = "1b, 7b" ;
     interpolation_zone_flags:flag_masks = "1b, 2b, 4b" ;
     interpolation_zone_flags:flag_meanings = "location_use_cartesian  sensor_direction_use_cartesian  solar_direction_use_cartesian" ;
