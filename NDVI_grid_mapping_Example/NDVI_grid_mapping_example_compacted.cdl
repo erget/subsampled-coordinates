@@ -11,13 +11,11 @@ variables:
   float ndvi(lat, lon) ;
     ndvi : standard_name = "normalized_difference_vegetation_index" ;
     ndvi : interpolation = "tp_interpolation" ;
-    ndvi : interpolation_indices = "y_indices x_indices" ;
+    ndvi : interpolation_indices = "y:y_indices  x:x_indices" ;
     ndvi : grid_mapping = "crs" ;
 
   int y_indices(tp_y) ;
-    y_indices : interpolation_dimension = "y" ;
   int x_indices(tp_x) ;
-    x_indices : interpolation_dimension = "x" ;
 
   char crs ;
     crs : grid_mapping_name = "lambert_conformal_conic";
