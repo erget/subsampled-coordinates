@@ -11,11 +11,9 @@ variables:
   float ndvi(lat, lon) ;
     ndvi : standard_name = "normalized_difference_vegetation_index" ;
     ndvi : interpolation = "tp_interpolation" ;
-    ndvi : interpolation_indices = "lat_indices lon_indices" ;
+    ndvi : interpolation_indices = "lat:lat_indices  lon:lon_indices" ;
   int lat_indices(tp_lat) ;
-    lat_indices : interpolation_dimension = "lat" ;
   int lon_indices(tp_lon) ;
-    lon_indices : interpolation_dimension = "lon" ;
 
   char tp_interpolation ;
     tp_interpolation : interpolation_name = "bi_linear" ;
