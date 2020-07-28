@@ -1,0 +1,115 @@
+netcdf VIIRS_M_and_I_Band_example_compacted {
+dimensions:
+  // VIIRS M-Band (750 m resolution imaging) 
+  m_track = 768 ;
+  m_scan = 3200 ;
+  m_channel = 16 ;
+
+  // VIIRS I-Band (375 m resolution imaging)
+  i_track = 1536 ;
+  i_scan = 6400 ;
+  i_channel = 5 ;
+
+  // Tie points and interpolation zones (shared between VIIRS M-Band and I-Band)
+  tp_track = 96 ;
+  tp_scan = 205 ;
+  track_interpolation_zone = 48 ;
+  scan_interpolation_zone = 200 ;
+
+  // Time, stored at scan-start and scan-end of each scan
+  time_scan = 2 ;
+
+variables:
+
+  // VIIRS M-Band 
+  float m_radiance(m_track, m_scan, m_channel) ;
+    m_radiance:subsampled_coordinates = "lat lon time sen_azi_ang sen_zen_ang sol_azi_ang sol_zen_ang" ;
+	m_radiance:restore_indices_override = "tp_track: m_track_indices tp_scan: m_scan_indices" ;
+
+  int m_track_indices(tp_track) ;
+	m_track_indices:subsamples_dimension = "m_track" ;
+
+  int m_scan_indices(tp_scan) ;
+	m_scan_indices:subsamples_dimension = "m_scan" ;
+
+  // VIIRS I-Band 
+  float i_radiance(i_track, i_scan, i_channel) ;
+	i_radiance:subsampled_coordinates = "lat lon time sen_azi_ang sen_zen_ang sol_azi_ang sol_zen_ang" ;
+
+  int i_track_indices(tp_track) ;
+	i_track_indices:subsamples_dimension = "i_track" ;
+
+  int i_scan_indices(tp_scan) ;
+	i_scan_indices:subsamples_dimension = "i_scan" ;
+
+
+  // Tie points
+  float lat(tp_track, tp_scan) ;
+    lat:standard_name = "latitude" ;
+    lat:units = "degrees_north" ;
+	lat:restore_method = "tp_interpolation" ;
+	lat:restore_indices = "tp_track: i_track_indices tp_scan: i_scan_indices" ;
+	lat:restore_terms = "lat_var: lat lon_var: lon" ;
+
+  float lon(tp_track, tp_scan) ;
+    lon:standard_name = "longitude" ;
+    lon:units = "degrees_east" ;
+	lon:restore_method = "tp_interpolation" ;
+	lon:restore_indices = "tp_track: i_track_indices tp_scan: i_scan_indices" ;
+	lon:restore_terms = "lat_var: lat lon_var: lon" ;
+
+  float sen_azi_ang(tp_track, tp_scan) ;
+    sen_azi_ang:standard_name = "sensor_azimuth_angle" ;
+    sen_azi_ang:units = "degrees" ;
+	sen_azi_ang:restore_method = "tp_interpolation" ;
+	sen_azi_ang:restore_indices = "tp_track: i_track_indices tp_scan: i_scan_indices" ;
+	sen_azi_ang:restore_terms = "sen_azi_var: sen_azi_ang sen_zen_var: sen_zen_ang" ;
+
+  float sen_zen_ang(tp_track, tp_scan) ;
+    sen_zen_ang:standard_name = "sensor_zenith_angle" ;
+    sen_zen_ang:units = "degrees" ;
+	sen_zen_ang:restore_method = "tp_interpolation" ;
+	sen_zen_ang:restore_indices = "tp_track: i_track_indices tp_scan: i_scan_indices" ;
+	sen_zen_ang:restore_terms = "sen_azi_var: sen_azi_ang sen_zen_var: sen_zen_ang" ;
+
+  float sol_azi_ang(tp_track, tp_scan) ;
+    sol_azi_ang:standard_name = "solar_azimuth_angle" ;
+    sol_azi_ang:units = "degrees" ;
+	sol_azi_ang:restore_method = "tp_interpolation" ;
+	sol_azi_ang:restore_indices = "tp_track: i_track_indices tp_scan: i_scan_indices" ;
+	sol_azi_ang:restore_terms = "sol_azi_var: sol_azi_ang sol_zen_var: sol_zen_ang" ;
+
+  float sol_zen_ang(tp_track, tp_scan) ;
+    sol_zen_ang:standard_name = "solar_zenith_angle" ;
+    sol_zen_ang:units = "degrees" ;
+	sol_zen_ang:restore_method = "tp_interpolation" ;
+	sol_zen_ang:restore_indices = "tp_track: i_track_indices tp_scan: i_scan_indices" ;
+	sol_zen_ang:restore_terms = "sol_azi_var: sol_azi_ang sol_zen_var: sol_zen_ang" ;
+
+  // Reusable interpolation containers for space and time, shared by VIIRS M-Band and I-Band
+  char tp_interpolation ;
+    tp_interpolation:standard_name = "bi_quadratic" ;
+    tp_interpolation:formula_terms = "ex_track: expansion_coefficient_track al_track: alignment_coefficient_track ex_scan: expansion_coefficient_scan al_scan: alignment_coefficient_scan flags: interpolation_zone_flags" ;
+
+  // Interpolation coefficients and flags
+  short expansion_coefficient_track(track_interpolation_zone, tp_scan) ;
+  short alignment_coefficient_track(track_interpolation_zone, tp_scan) ;
+  short expansion_coefficient_scan(tp_track, scan_interpolation_zone) ;
+  short alignment_coefficient_scan(tp_track, scan_interpolation_zone) ;
+  byte interpolation_zone_flags(track_interpolation_zone, scan_interpolation_zone) ;
+    interpolation_zone_flags:valid_range = "1b, 7b" ;
+    interpolation_zone_flags:flag_masks = "1b, 2b, 4b" ;
+    interpolation_zone_flags:flag_meanings = "location_use_cartesian  sensor_direction_use_cartesian  solar_direction_use_cartesian" ;
+
+  // Time
+  double t(tp_track, time_scan) ;
+    t:long_name = "time" ;
+    t:units = "days since 1990-1-1 0:0:0" ;
+	t:restore_method = "time_interpolation" ;
+	t:restore_indices = "tp_track: i_track_indices" ;
+
+  char time_interpolation ;
+    time_interpolation:standard_name = "linear" ;
+    time_interpolation:formula_terms = "range_var: t" ;
+
+}
