@@ -1,0 +1,49 @@
+netcdf multiband_profile_swath {
+dimensions:
+	track = 5200 ;
+	scan = 3600 ;
+	band = 3 ;
+	press = 2 ;
+	tp_track = 250 ;
+	tp_scan = 600 ;
+variables:
+	float swath_data(track, scan, press, band) ;
+		swath_data:coordinates = "time" ;
+		swath_data:subsampled_coordinates = "lat lon" ;
+
+	float band(band) ;
+		band:standard_name = "sensor_band_central_radiation_wavenumber" ;
+		band:units = "cm-1" ;
+
+	float press(press) ;
+		press:standard_name = "air_pressure" ;
+		press:units = "Pa" ;
+		press:positive = "up" ;
+
+	double time(track, scan) ;
+		time:standard_name = "time" ;
+		time:units = "<units> since <datetime string>" ;
+		time:calendar = "gregorian" ;
+
+	float lat(tp_track, tp_scan) ;
+		lat:standard_name = "latitude" ;
+		lat:units = "degrees_north" ;
+		lat:restore_method = "restore" ;
+        lat:restore_indices = "tp_track: sub_track tp_scan: sub_scan" ;
+
+	float lon(tp_track, tp_scan) ;
+		lon:standard_name = "longitude" ;
+		lon:units = "degrees_east" ;
+		lon:restore_method = "restore" ;
+        lon:restore_indices = "tp_track: sub_track tp_scan: sub_scan" ;
+
+	int sub_track(tp_track) ;
+		sub_track:subsamples_dimension = "track" ;
+
+	int sub_scan(tp_scan) ;
+		sub_scan:subsamples_dimension = "scan" ;
+
+	char restore ;
+		restore:standard_name = "lonlat_interpolation" ;
+		restore:formula_terms = "v1: lon v2: lat v3: 360" ;
+}
